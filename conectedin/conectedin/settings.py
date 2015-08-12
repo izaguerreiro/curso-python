@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for conectedin project.
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'perfis',
+    'usuarios',
 )
 
 MIDDLEWARE_CLASSES = (

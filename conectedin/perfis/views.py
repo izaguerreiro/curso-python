@@ -1,19 +1,35 @@
-from django.shortcuts import render
+# -*- coding: utf-8 -*-
 
-from perfis.models import Perfil
+from django.shortcuts import render, redirect
+from perfis.models import Perfil, Convite
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'perfis': Perfil.objects.all(), 'perfil_logado': get_perfil_logado(request)})
 
 
 def exibir(request, perfil_id):
-	perfil = Perfil()
+	perfil = Perfil.objects.get(id=perfil_id)
+	perfil_logado = get_perfil_logado(request)
+	ja_e_contato = perfil in perfil_logado.contatos.all()
+	
+	return render(request, 'perfil.html', {'perfil': perfil, 'ja_e_contato': ja_e_contato})
 
-	if perfil_id == '1':
-		perfil = Perfil('Izabela Guerreiro', 'izaguerreiro@gmail.com',  '222222', 'Izepa')
 
-	if perfil_id == '2':
-		perfil = Perfil('Paulo Roberto', 'paulo.pinda@gmail.com',  '2222', 'Izepa')
+def convidar(request, perfil_id):
+	perfil_a_convidar = Perfil.objects.get(id=perfil_id)
+	perfil_logado = get_perfil_logado(request)
+	perfil_logado.convidar(perfil_a_convidar)
 
-	return render(request, 'perfil.html', {'perfil': perfil})
+	return redirect('index')
+
+
+def aceitar(request, convite_id):
+	convite = Convite.objects.get(id=convite_id)
+	convite.aceitar()
+
+	return redirect('index')
+
+
+def get_perfil_logado(request):
+	return Perfil.objects.get(id=1)
