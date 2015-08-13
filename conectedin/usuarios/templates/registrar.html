@@ -5,27 +5,31 @@
 
 		<h2 class="form-signin-heading">Crie seu usuário</h2>
 
-		<input  id="id_email" name="email" type="text" class="form-control" placeholder="E-mail *" value="{{form.email}}" required>
+		<input  id="id_email" name="email" type="text" class="form-control" placeholder="E-mail *" required autofocus>
 
-		<input  id="id_nome" name="nome" type="text" class="form-control" placeholder="Nome *" value="{{form.nome}}" required>
+		<input  id="id_nome" name="nome" type="text" class="form-control" placeholder="Nome *" required>
 
-		<input  id="id_senha" name="senha" type="password" class="form-control" placeholder="Senha *" value="{{form.senha}}" required>
+		<input  id="id_senha" name="senha" type="password" class="form-control" placeholder="Senha *" required>
 
-		<input  id="id_telefone" name="telefone" type="text" class="form-control" placeholder="Telefone" value="{{form.telefone}}">
+		<hr />
 
-		<input  id="id_nome_empresa" name="nome_empresa" type="text" class="form-control" placeholder="Nome Empresa" value="{{form.nome_empresa}}">
+		<input  id="id_telefone" name="telefone" type="text" class="form-control" placeholder="Telefone">
 
-		<hr>
+		<input  id="id_nome_empresa" name="nome_empresa" type="text" class="form-control" placeholder="Nome Empresa">
 
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+		<hr />
 
-		<hr>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Registrar</button>
+
+		<hr />
 
 		{% if form.errors %}
 	      	<div class="alert alert-danger">
-	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	        	{{form.non_field_errors}}
 	      	</div>
 	    {% endif %}
+
+		
 	</form>
 {% endblock %}

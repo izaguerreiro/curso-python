@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.base import View
+from django.contrib.auth.models import User
+from usuarios.forms import RegistrarUsuarioForm
+from perfis.models import Perfil
 
 
 class RegistrarUsuarioView(View):
@@ -11,24 +14,21 @@ class RegistrarUsuarioView(View):
 	def get(self, request):
 		return render(request, self.template_name)
 
-	def post(self, request, *args, **kwargs):
-        #preencher o from
-        form = RegistrarUsuarioForm(request.POST)
+	def post(self, request):
+		form = RegistrarUsuarioForm(request.POST)
         
-        #verificando se eh validor
-        if form.is_valid():
-            dados_form = form.data
-            #criar o usuario
-            usuario = User.objects.create_user(dados_form['email'], dados_form['email'], dados_form['senha'])            
-            #criar o perfil
-            perfil = Perfil(nome=dados_form['nome'], 
-                            email=dados_form['email'], 
-                            telefone=dados_form['telefone'],
-                            nome_empresa=dados_form['nome_empresa'],
-                            usuario=usuario)
-            #gravar no banco
-            perfil.save()
-            #redirecioando para index
-            return redirect('index')
+		if form.is_valid():
+			dados_form = form.data
 
-        return render(request, self.template_name, {'form': form})
+			usuario = User.objects.create_user(dados_form['nome'], dados_form['email'], dados_form['senha'])            
+
+			perfil = Perfil(nome=dados_form['nome'], 
+							email=dados_form['email'], 
+							telefone=dados_form['telefone'],
+							nome_empresa=dados_form['nome_empresa'],
+							usuario=usuario)
+			perfil.save()
+
+			return redirect('index')
+
+		return render(request, self.template_name, {'form': form})

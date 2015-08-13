@@ -17,7 +17,8 @@ class RegistrarUsuarioForm(forms.Form):
         if not super(RegistrarUsuarioForm, self).is_valid():
             self.adiciona_erro("Por favor, verifique os dados informados")
             valid = False
-        user_exists = User.objects.filter(username=self.data['email']).exists()
+        
+        user_exists = User.objects.filter(username=self.data['nome']).exists()
         
         if user_exists:
             self.adiciona_erro("Usuario ja existente")
