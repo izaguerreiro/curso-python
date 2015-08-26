@@ -1,0 +1,35 @@
+{% extends 'base_usuario.html' %}
+{% block body %}
+	<form class="form-signin" action="{% url 'registrar' %}" method="post">
+		{% csrf_token %}
+
+		<h2 class="form-signin-heading">Crie seu usuário</h2>
+
+		<input  id="id_email" name="email" type="text" class="form-control" placeholder="E-mail *" required autofocus>
+
+		<input  id="id_nome" name="nome" type="text" class="form-control" placeholder="Nome *" required>
+
+		<input  id="id_senha" name="senha" type="password" class="form-control" placeholder="Senha *" required>
+
+		<hr />
+
+		<input  id="id_telefone" name="telefone" type="text" class="form-control" placeholder="Telefone">
+
+		<input  id="id_nome_empresa" name="nome_empresa" type="text" class="form-control" placeholder="Nome Empresa">
+
+		<hr />
+
+		<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Registrar</button>
+
+		<hr />
+
+		{% if form.errors %}
+	      	<div class="alert alert-danger">
+	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	        	{{form.non_field_errors}}
+	      	</div>
+	    {% endif %}
+
+		
+	</form>
+{% endblock %}
